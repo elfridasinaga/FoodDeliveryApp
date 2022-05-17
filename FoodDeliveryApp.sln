@@ -5,6 +5,10 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodDelivery", "FoodDelivery\FoodDelivery.csproj", "{C0A7C439-19B4-4781-9B97-5E9F7C3B04F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService", "UserService\UserService.csproj", "{76B67747-CF28-443A-ADF4-D7ECECDBC139}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService", "OrderService\OrderService.csproj", "{569291BB-CB4F-4FFD-A42F-D31F1B0297E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C0A7C439-19B4-4781-9B97-5E9F7C3B04F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0A7C439-19B4-4781-9B97-5E9F7C3B04F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0A7C439-19B4-4781-9B97-5E9F7C3B04F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B67747-CF28-443A-ADF4-D7ECECDBC139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B67747-CF28-443A-ADF4-D7ECECDBC139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B67747-CF28-443A-ADF4-D7ECECDBC139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B67747-CF28-443A-ADF4-D7ECECDBC139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{569291BB-CB4F-4FFD-A42F-D31F1B0297E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{569291BB-CB4F-4FFD-A42F-D31F1B0297E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{569291BB-CB4F-4FFD-A42F-D31F1B0297E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{569291BB-CB4F-4FFD-A42F-D31F1B0297E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
