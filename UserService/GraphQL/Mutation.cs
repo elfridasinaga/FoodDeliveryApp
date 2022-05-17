@@ -132,5 +132,44 @@ namespace UserService.GraphQL
             return await Task.FromResult(user);
         }
 
+        [Authorize]
+        public async Task<User> ChangePasswordByUserAsync(
+            UserInput input,
+            [Service] FoodAppContext context)
+        {
+            var user = context.Users.Where(o => o.Id == input.id).FirstOrDefault();
+            if (user != null)
+            {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(input.Password);
+
+                context.Users.Update(user);
+                await context.SaveChangesAsync();
+            }
+
+            return await Task.FromResult(user);
+        }
+
+        [Authorize]
+        public async Task<Profile> AddProfileAsync(
+            ProfilesInput input,
+            [Service] FoodAppContext context)
+        {
+            //EF
+            var profile = new Profile
+            {
+                UserId = input.UserId,
+                Name = input.Name,
+                Address = input.Address,
+                City = input.City,
+                Phone = input.Phone
+
+            };
+
+            var ret = context.Profiles.Add(profile);
+            await context.SaveChangesAsync();
+
+            return ret.Entity;
+        }
+
     }
 }

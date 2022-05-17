@@ -2,7 +2,7 @@
 {
     public record FoodInput
     (
-        int? Id,
+        int Id,
         string Name,
         int Stock,
         double Price
