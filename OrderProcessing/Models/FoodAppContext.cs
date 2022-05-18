@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace FoodDelivery.Models
+namespace OrderProcessing.Models
 {
     public partial class FoodAppContext : DbContext
     {
@@ -67,12 +67,6 @@ namespace FoodDelivery.Models
                     .HasForeignKey(d => d.CourierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Courier");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_User");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>

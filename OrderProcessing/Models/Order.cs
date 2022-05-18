@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FoodDelivery.Models
+namespace OrderProcessing.Models
 {
     public partial class Order
     {
@@ -16,7 +16,6 @@ namespace FoodDelivery.Models
         public int CourierId { get; set; }
 
         public virtual Courier Courier { get; set; } = null!;
-        public virtual User User { get; set; } = null!;
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

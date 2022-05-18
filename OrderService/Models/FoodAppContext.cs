@@ -30,7 +30,7 @@ namespace OrderService.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-V0TB2P3\\SQLEXPRESS;database=FoodApp;uid=tester;pwd=pass123;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-V0TB2P3\\SQLEXPRESS;Database=FoodApp;uid=tester;pwd=pass123;");
             }
         }
 
@@ -67,6 +67,12 @@ namespace OrderService.Models
                     .HasForeignKey(d => d.CourierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Courier");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_User");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>

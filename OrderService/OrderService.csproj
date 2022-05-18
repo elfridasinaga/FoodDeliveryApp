@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GraphQL\" />
+    <ProjectReference Include="..\FoodDelivery\FoodDelivery.csproj" />
   </ItemGroup>
 
 </Project>

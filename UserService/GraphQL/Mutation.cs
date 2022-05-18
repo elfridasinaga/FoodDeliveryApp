@@ -13,7 +13,6 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using UserService.Models;
-using UserService.GraphQL;
 using Microsoft.EntityFrameworkCore;
 
 namespace UserService.GraphQL
