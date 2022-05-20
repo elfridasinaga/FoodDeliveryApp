@@ -39,7 +39,7 @@ namespace UserService.GraphQL
         }
 
         [Authorize(Roles = new[] { "MANAGER", "BUYER" })] // dapat diakses kalau sudah login
-        public IQueryable<Courier> GetCouriers([Service] FoodAppContext context) =>
-            context.Couriers;
+        public IQueryable<CourierLoc> GetCouriers([Service] FoodAppContext context) =>
+            context.CourierLocs;
     }
 }

@@ -16,7 +16,7 @@ namespace FoodDb.Models
         {
         }
 
-        public virtual DbSet<Courier> Couriers { get; set; } = null!;
+        public virtual DbSet<CourierLoc> CourierLocs { get; set; } = null!;
         public virtual DbSet<Food> Foods { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
@@ -27,22 +27,30 @@ namespace FoodDb.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            /*if (!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=DESKTOP-V0TB2P3\\SQLEXPRESS;Database=FoodApp;uid=tester;pwd=pass123;");
-            }*/
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Courier>(entity =>
+            modelBuilder.Entity<CourierLoc>(entity =>
             {
-                entity.ToTable("Courier");
+                entity.ToTable("CourierLoc");
 
-                entity.Property(e => e.CourierName).HasMaxLength(50);
+                entity.Property(e => e.GeoLat).HasMaxLength(50);
 
-                entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+                entity.Property(e => e.GeoLong).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.CourierLocs)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CourierLoc_User");
             });
 
             modelBuilder.Entity<Food>(entity =>
@@ -60,11 +68,11 @@ namespace FoodDb.Models
 
                 entity.Property(e => e.Code).HasMaxLength(50);
 
-                entity.HasOne(d => d.Courier)
+                entity.HasOne(d => d.CourierLoc)
                     .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.CourierId)
+                    .HasForeignKey(d => d.CourierLocId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_Courier");
+                    .HasConstraintName("FK_Order_CourierLoc");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Orders)
