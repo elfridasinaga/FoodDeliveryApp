@@ -122,7 +122,7 @@ namespace UserService.GraphQL
         int id,
         [Service] FoodAppContext context)
         {
-            var user = context.Users.Where(u => u.Id == id).Include(u => u.UserRoles).FirstOrDefault();
+            var user = context.Users.Where(u => u.Id == id).Include(u => u.UserRoles).Include(u => u.Profiles).FirstOrDefault();
             if (user != null)
             {
                 context.Users.Remove(user);
@@ -170,5 +170,57 @@ namespace UserService.GraphQL
             return ret.Entity;
         }
 
+        //Courier
+        [Authorize(Roles = new[] { "MANAGER" })]
+        public async Task<Courier> AddCourierAsync(
+            CourierInput input,
+            [Service] FoodAppContext context)
+        {
+
+            // EF
+            var courier = new Courier
+            {
+                CourierName = input.CourierName,
+                PhoneNumber = input.PhoneNumber
+            };
+
+            var ret = context.Couriers.Add(courier);
+            await context.SaveChangesAsync();
+
+            return ret.Entity;
+        }
+
+        [Authorize(Roles = new[] { "MANAGER" })]
+        public async Task<Courier> UpdateCourierAsync(
+            CourierInput input,
+            [Service] FoodAppContext context)
+        {
+            var courier = context.Couriers.Where(o => o.Id == input.Id).FirstOrDefault();
+            if (courier != null)
+            {
+                courier.CourierName = input.CourierName;
+
+
+                context.Couriers.Update(courier);
+                await context.SaveChangesAsync();
+            }
+
+
+            return await Task.FromResult(courier);
+        }
+
+        [Authorize(Roles = new[] { "MANAGER" })]
+        public async Task<Courier> DeleteCourierByIdAsync(
+        int id,
+        [Service] FoodAppContext context)
+        {
+            var courier = context.Couriers.Where(u => u.Id == id).FirstOrDefault();
+            if (courier != null)
+            {
+                context.Couriers.Remove(courier);
+                await context.SaveChangesAsync();
+            }
+            return await Task.FromResult(courier);
+        }
     }
 }
