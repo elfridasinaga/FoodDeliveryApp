@@ -1,5 +1,5 @@
-﻿using HotChocolate.AspNetCore.Authorization;
-using OrderService.Models;
+﻿using FoodDb.Models;
+using HotChocolate.AspNetCore.Authorization;
 
 namespace OrderService.GraphQL
 {

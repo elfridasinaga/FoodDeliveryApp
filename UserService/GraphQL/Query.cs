@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using UserService.Models;
 using UserService.GraphQL;
+using FoodDb.Models;
 
 namespace UserService.GraphQL
 {

@@ -1,4 +1,4 @@
-﻿using FoodDelivery.Models;
+﻿using FoodDb.Models;
 using HotChocolate.AspNetCore.Authorization;
 using System.Security.Claims;
 

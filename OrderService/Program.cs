@@ -1,8 +1,8 @@
+using FoodDb.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OrderService.GraphQL;
-using OrderService.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

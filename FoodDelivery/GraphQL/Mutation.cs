@@ -1,4 +1,4 @@
-﻿using FoodDelivery.Models;
+﻿using FoodDb.Models;
 using HotChocolate.AspNetCore.Authorization;
 
 namespace FoodDelivery.GraphQL
@@ -28,7 +28,7 @@ namespace FoodDelivery.GraphQL
 
         [Authorize(Roles = new[] { "MANAGER" })]
         public async Task<Food> UpdateFoodAsync(
-            FoodData input,
+            FoodInput input,
             [Service] FoodAppContext context)
         {
             var food = context.Foods.Where(o => o.Id == input.Id).FirstOrDefault();

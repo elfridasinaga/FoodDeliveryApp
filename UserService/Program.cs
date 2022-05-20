@@ -1,9 +1,9 @@
+using FoodDb.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UserService.GraphQL;
-using UserService.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var conString = builder.Configuration.GetConnectionString("MyDatabase");

@@ -1,4 +1,5 @@
-﻿using HotChocolate.AspNetCore.Authorization;
+﻿using FoodDb.Models;
+using HotChocolate.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Models;
 using System.Security.Claims;
@@ -29,6 +30,8 @@ namespace OrderService.GraphQL
                         UserId = user.Id,
                         CourierId = input.CourierId
                     };
+                    context.Orders.Add(order);
+                    context.SaveChanges();
 
                     foreach (var item in input.Details)
                     {
@@ -40,9 +43,10 @@ namespace OrderService.GraphQL
                         };
                         order.OrderDetails.Add(detail);
                     }
-                    context.Orders.Add(order);
                     context.SaveChanges();
                     await transaction.CommitAsync();
+
+                    
                 }
                 else
                     throw new Exception("user was not found");

@@ -12,8 +12,8 @@ using HotChocolate.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using UserService.Models;
 using Microsoft.EntityFrameworkCore;
+using FoodDb.Models;
 
 namespace UserService.GraphQL
 {
@@ -131,9 +131,9 @@ namespace UserService.GraphQL
             return await Task.FromResult(user);
         }
 
-        [Authorize]
+        /*[Authorize]
         public async Task<User> ChangePasswordByUserAsync(
-            UserInput input,
+            UserData input,
             [Service] FoodAppContext context)
         {
             var user = context.Users.Where(o => o.Id == input.id).FirstOrDefault();
@@ -146,7 +146,7 @@ namespace UserService.GraphQL
             }
 
             return await Task.FromResult(user);
-        }
+        }*/
 
         [Authorize]
         public async Task<Profile> AddProfileAsync(

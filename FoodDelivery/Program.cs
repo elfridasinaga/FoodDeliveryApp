@@ -1,5 +1,5 @@
+using FoodDb.Models;
 using FoodDelivery.GraphQL;
-using FoodDelivery.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  fooddelivery:
+    image: ${DOCKER_REGISTRY-}fooddelivery
+    build:
+      context: .
+      dockerfile: FoodDelivery/Dockerfile
+
+  orderservice:
+    image: ${DOCKER_REGISTRY-}orderservice
+    build:
+      context: .
+      dockerfile: OrderService/Dockerfile
+
+
+  userservice:
+    image: ${DOCKER_REGISTRY-}userservice
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+
