@@ -109,7 +109,7 @@ namespace OrderService.GraphQL
             UpdateCourier input,
             [Service] FoodAppContext context)
         {
-            var courierloc = context.CourierLocs.Where(c => c.Id == input.CourierId).FirstOrDefault();
+            var courierloc = context.CourierLocs.Where(c => c.Id == input.OrderId).FirstOrDefault();
             if(courierloc != null)
             {
                 courierloc.GeoLat = Convert.ToString(input.GeoLat);
@@ -122,16 +122,11 @@ namespace OrderService.GraphQL
         }
 
         public async Task<Order> CompletedOrderByCourier(
-            [Service] FoodAppContext context,
-            ClaimsPrincipal claimsPrincipal)
+            int id,
+            [Service] FoodAppContext context)
         {
-            var userName = claimsPrincipal.Identity.Name;
-            var courier = context.Users.Where(c => c.Username == userName).FirstOrDefault();
-            var order = context.Orders.Where(o => o.Completed == false && o.CourierLocId == courier.Id).FirstOrDefault();
-            //var orderDetail = context.OrderDetails.Where(o => o.OrderId == order.Id).FirstOrDefault();
-            var status = context.CourierLocs.Where(s => s.UserId == courier.Id).FirstOrDefault();
-
-            using var transaction = context.Database.BeginTransaction();
+            var order = context.Orders.Where(o => o.Id == id).FirstOrDefault();
+            var status = context.CourierLocs.Where(c => c.Id == order.CourierLocId).FirstOrDefault();
             if (order != null)
             {
                 order.Completed = true;
@@ -139,15 +134,49 @@ namespace OrderService.GraphQL
 
                 status.Status = "AVAILABLE";
                 context.CourierLocs.Update(status);
-
-                await context.SaveChangesAsync();
-                return await Task.FromResult(order);
-            }
-            else
-            {
-                transaction.Rollback();
+                context.SaveChanges();
             }
             return await Task.FromResult(order);
+            //var userName = claimsPrincipal.Identity.Name;
+            //var courier = context.Users.Where(c => c.Username == userName).FirstOrDefault();
+            //var order = context.Orders.Where(o => o.Completed == false && o.CourierLocId == courier.Id).FirstOrDefault();
+            //var orderDetail = context.OrderDetails.Where(o => o.OrderId == order.Id).FirstOrDefault();
+            //var status = context.CourierLocs.Where(s => s.UserId == courier.Id).FirstOrDefault();
+
+            //using var transaction = context.Database.BeginTransaction();
+            //if (order != null)
+            //{
+            //    order.Completed = true;
+            //    context.Orders.Update(order);
+
+            //    status.Status = "AVAILABLE";
+            //    context.CourierLocs.Update(status);
+
+            //    await context.SaveChangesAsync();
+            //    return await Task.FromResult(order);
+            //}
+            ///*if (order.Completed != false)
+            //{
+            //    try
+            //    {
+            //        if (order != null)
+            //        {
+            //            order.Completed = true;
+            //            context.Orders.Update(order);
+
+            //            status.Status = "AVAILABLE";
+            //            context.CourierLocs.Update(status);
+
+            //            await context.SaveChangesAsync();
+            //            return await Task.FromResult(order);
+            //        }
+            //    }
+            //    catch
+            //    {
+            //        transaction.Rollback();
+            //    }
+            //}*/
+            //return await Task.FromResult(order);
         }
 
         /*public async Task<CourierLoc> UpdateOrderByCourier(

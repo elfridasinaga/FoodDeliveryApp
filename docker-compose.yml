@@ -1,6 +1,12 @@
 version: '3.4'
 
 services:
+  userservice:
+    image: ${DOCKER_REGISTRY-}userservice
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+
   fooddelivery:
     image: ${DOCKER_REGISTRY-}fooddelivery
     build:
@@ -14,9 +20,5 @@ services:
       dockerfile: OrderService/Dockerfile
 
 
-  userservice:
-    image: ${DOCKER_REGISTRY-}userservice
-    build:
-      context: .
-      dockerfile: UserService/Dockerfile
+
 

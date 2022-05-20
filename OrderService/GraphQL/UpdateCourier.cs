@@ -4,6 +4,6 @@
     (
         double GeoLat,
         double GeoLong,
-        int CourierId
+        int OrderId
         );
 }
