@@ -8,48 +8,6 @@ namespace OrderService.GraphQL
 {
     public class Mutation
     {
-        //[Authorize(Roles = new[] { "MANAGER" })]
-        //public async Task<User> DeleteCourierByManagerAsync(
-        //    int input,
-        //    [Service] BigFoodContext context)
-        //{
-        //    var role = context.UserRoles.Where(u => u.UserId == input).FirstOrDefault();
-        //    if (role != null && role.RoleId == 4)
-        //    {
-        //        context.UserRoles.Remove(role);
-        //        await context.SaveChangesAsync();
-        //    }
-        //    var user = context.Users.Where(o => o.Id == input).FirstOrDefault();
-        //    if (user != null)
-        //    {
-        //        context.Users.Remove(user);
-        //        await context.SaveChangesAsync();
-        //    }
-        //    return await Task.FromResult(user);
-        //}
-
-        //[Authorize(Roles = new[] { "MANAGER" })]
-        //public async Task<UserData> UpdateCourierByManagerAsync(
-        //    RegisterUser input,
-        //    [Service] BigFoodContext context)
-        //{
-        //    var role = context.UserRoles.Where(u => u.UserId == input.Id).FirstOrDefault();
-        //    var user = context.Users.Where(o => o.Id == input.Id && role.RoleId == 4).FirstOrDefault();
-        //    if (user != null)
-        //    {
-        //        user.Username = input.UserName;
-        //        user.Email = input.Email;
-        //        user.Password = BCrypt.Net.BCrypt.HashPassword(input.Password);
-        //        var ret = context.Users.Update(user);
-        //        await context.SaveChangesAsync();
-        //    }
-        //    return await Task.FromResult(new UserData
-        //    {
-        //        Id = user.Id,
-        //        Username = user.Username,
-        //        Email = user.Email,
-        //    });
-        //}
 
         [Authorize(Roles = new[] { "BUYER" })]
 
@@ -121,6 +79,7 @@ namespace OrderService.GraphQL
             return await Task.FromResult(input);
         }
 
+        [Authorize(Roles = new[] { "COURIER" })]
         public async Task<Order> CompletedOrderByCourier(
             int id,
             [Service] FoodAppContext context)
@@ -137,125 +96,8 @@ namespace OrderService.GraphQL
                 context.SaveChanges();
             }
             return await Task.FromResult(order);
-            //var userName = claimsPrincipal.Identity.Name;
-            //var courier = context.Users.Where(c => c.Username == userName).FirstOrDefault();
-            //var order = context.Orders.Where(o => o.Completed == false && o.CourierLocId == courier.Id).FirstOrDefault();
-            //var orderDetail = context.OrderDetails.Where(o => o.OrderId == order.Id).FirstOrDefault();
-            //var status = context.CourierLocs.Where(s => s.UserId == courier.Id).FirstOrDefault();
-
-            //using var transaction = context.Database.BeginTransaction();
-            //if (order != null)
-            //{
-            //    order.Completed = true;
-            //    context.Orders.Update(order);
-
-            //    status.Status = "AVAILABLE";
-            //    context.CourierLocs.Update(status);
-
-            //    await context.SaveChangesAsync();
-            //    return await Task.FromResult(order);
-            //}
-            ///*if (order.Completed != false)
-            //{
-            //    try
-            //    {
-            //        if (order != null)
-            //        {
-            //            order.Completed = true;
-            //            context.Orders.Update(order);
-
-            //            status.Status = "AVAILABLE";
-            //            context.CourierLocs.Update(status);
-
-            //            await context.SaveChangesAsync();
-            //            return await Task.FromResult(order);
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        transaction.Rollback();
-            //    }
-            //}*/
-            //return await Task.FromResult(order);
+            
         }
 
-        /*public async Task<CourierLoc> UpdateOrderByCourier(
-            CourierLoc input,
-            [Service] FoodAppContext context)
-        {
-            var courier = context.CourierLocs.Where(o => o.Id == input.Id).FirstOrDefault();
-            if (courier != null)
-            {
-                courier.GeoLat = Convert.ToString(input.GeoLat);
-                courier.GeoLong = Convert.ToString(input.GeoLong);
-
-
-                context.CourierLocs.Update(courier);
-                await context.SaveChangesAsync();
-            }
-        }*/
-
-      
-
-        /*[Authorize(Roles = new[] { "COURIER" })]
-        public async Task<CourierLoc> UpdateCourierLocByBuyer(
-            CourierLocInput input,
-            [Service] FoodAppContext context)
-        {
-            CourierLoc courierLoc = new CourierLoc();
-        }*/
-
-        //Courier
-        //[Authorize(Roles = new[] { "MANAGER" })]
-        //public async Task<Courier> AddCourierAsync(
-        //    CourierInput input,
-        //    [Service] FoodAppContext context)
-        //{
-
-        //    // EF
-        //    var courier = new Courier
-        //    {
-        //        CourierName = input.CourierName,
-        //        PhoneNumber = input.PhoneNumber
-        //    };
-
-        //    var ret = context.Couriers.Add(courier);
-        //    await context.SaveChangesAsync();
-
-        //    return ret.Entity;
-        //}
-
-        //[Authorize(Roles = new[] { "MANAGER" })]
-        //public async Task<Courier> UpdateCourierAsync(
-        //    CourierInput input,
-        //    [Service] FoodAppContext context)
-        //{
-        //    var courier = context.Couriers.Where(o => o.Id == input.Id).FirstOrDefault();
-        //    if (courier != null)
-        //    {
-        //        courier.CourierName = input.CourierName;
-
-
-        //        context.Couriers.Update(courier);
-        //        await context.SaveChangesAsync();
-        //    }
-
-
-        //    return await Task.FromResult(courier);
-        //}
-
-        //[Authorize(Roles = new[] { "MANAGER" })]
-        //public async Task<Courier> DeleteCourierByIdAsync(
-        //int id,
-        //[Service] FoodAppContext context)
-        //{
-        //    var courier = context.Couriers.Where(u => u.Id == id).FirstOrDefault();
-        //    if (courier != null)
-        //    {
-        //        context.Couriers.Remove(courier);
-        //        await context.SaveChangesAsync();
-        //    }
-        //    return await Task.FromResult(courier);
-        //}
     }
 }

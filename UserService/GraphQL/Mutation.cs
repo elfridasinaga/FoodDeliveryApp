@@ -131,12 +131,12 @@ namespace UserService.GraphQL
             return await Task.FromResult(user);
         }
 
-        /*[Authorize]
+        [Authorize]
         public async Task<User> ChangePasswordByUserAsync(
-            UserData input,
+            ChangePassword input,
             [Service] FoodAppContext context)
         {
-            var user = context.Users.Where(o => o.Id == input.id).FirstOrDefault();
+            var user = context.Users.Where(o => o.Id == input.Id).FirstOrDefault();
             if (user != null)
             {
                 user.Password = BCrypt.Net.BCrypt.HashPassword(input.Password);
@@ -146,7 +146,7 @@ namespace UserService.GraphQL
             }
 
             return await Task.FromResult(user);
-        }*/
+        }
 
         [Authorize]
         public async Task<Profile> AddProfileAsync(
@@ -214,6 +214,32 @@ namespace UserService.GraphQL
                 FullName = newUser.FullName,
                 Email = newUser.Email,
                 Username = newUser.Username,
+            });
+        }
+
+
+        [Authorize(Roles = new[] { "MANAGER" })]
+        public async Task<UserData> UpdateCourierByManagerAsync(
+            RegisterUser input,
+            [Service] FoodAppContext context)
+        {
+            var role = context.UserRoles.Where(u => u.UserId == input.Id).FirstOrDefault();
+            var user = context.Users.Where(o => o.Id == input.Id && role.RoleId == 4).FirstOrDefault();
+            if (user != null)
+            {
+                user.FullName = input.FullName;
+                user.Username = input.UserName;
+                user.Email = input.Email;
+                user.Password = BCrypt.Net.BCrypt.HashPassword(input.Password);
+                var ret = context.Users.Update(user);
+                await context.SaveChangesAsync();
+            }
+            return await Task.FromResult(new UserData
+            {
+                Id = user.Id,
+                FullName = input.FullName,
+                Username = user.Username,
+                Email = user.Email,
             });
         }
     }

@@ -6,9 +6,6 @@ namespace FoodDelivery.GraphQL
 {
     public class Query
     {
-        /*[Authorize(Roles = new[] { "MANAGER" })] // dapat diakses kalau sudah login
-        public IQueryable<Food> GetFoods([Service] FoodAppContext context) =>
-            context.Foods;*/
 
         [Authorize]
         public IQueryable<Food> GetFoods([Service] FoodAppContext context, ClaimsPrincipal claimsPrincipal)
@@ -30,17 +27,6 @@ namespace FoodDelivery.GraphQL
             return new List<Food>().AsQueryable();
         }
 
-        /*[Authorize]
-        public IQueryable<Food> GetFoodsbyToken([Service] FoodAppContext context, ClaimsPrincipal claimsPrincipal)
-        {
-            var userName = claimsPrincipal.Identity.Name;
-            var user = context.Users.Where(o => o.Username == userName).FirstOrDefault();
-            if (user != null)
-            {
-                var food = context.Foods.Where(o => o.Id == user.Id);
-                return food.AsQueryable();
-            }
-            return new List<Food>().AsQueryable();
-        }*/
+        
     }
 }
