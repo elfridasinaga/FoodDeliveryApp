@@ -67,7 +67,7 @@ namespace OrderService.GraphQL
             UpdateCourier input,
             [Service] FoodAppContext context)
         {
-            var courierloc = context.CourierLocs.Where(c => c.Id == input.OrderId).FirstOrDefault();
+            var courierloc = context.CourierLocs.Where(c => c.Id == input.CourierId).FirstOrDefault();
             if(courierloc != null)
             {
                 courierloc.GeoLat = Convert.ToString(input.GeoLat);
